@@ -1,3 +1,5 @@
+import './globals.css';
+
 export const metadata = {
   title: 'ALOEC Admin Panel',
   description: 'Admin Panel for ALOEC application',
