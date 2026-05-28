@@ -42,8 +42,15 @@ function LoginForm() {
         toast.error('Acceso denegado: No tienes permisos de administrador.', { id: toastId, duration: 5000 });
       }
     } catch (err: any) {
-      console.error(err);
-      toast.error('Credenciales inválidas o error de conexión.', { id: toastId });
+      console.error("Login error object:", err);
+      let errorMessage = 'Credenciales inválidas o error de conexión.';
+      
+      if (err.code === 'auth/wrong-password') errorMessage = 'Contraseña incorrecta.';
+      else if (err.code === 'auth/user-not-found') errorMessage = 'Usuario no encontrado.';
+      else if (err.code === 'permission-denied') errorMessage = 'No tienes permisos en la base de datos (Firestore Rules).';
+      else if (err.message) errorMessage = err.message;
+      
+      toast.error(errorMessage, { id: toastId, duration: 6000 });
     } finally {
       setLoading(false);
     }
