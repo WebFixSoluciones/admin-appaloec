@@ -1,6 +1,7 @@
 'use client';
 
 import React, { useState } from 'react';
+import { UploadCloud, Link as LinkIcon, CheckCircle2 } from 'lucide-react';
 
 export default function VideoUploadPage() {
   const [title, setTitle] = useState('');
@@ -12,7 +13,6 @@ export default function VideoUploadPage() {
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setIsUploading(true);
-    // Simular integración con Firestore y guardado de URL
     setTimeout(() => {
       alert('Video guardado correctamente en la base de datos (Vimeo/CDN)');
       setIsUploading(false);
@@ -23,80 +23,107 @@ export default function VideoUploadPage() {
   };
 
   return (
-    <div className="page-container" style={{ maxWidth: '800px', margin: '0 auto' }}>
-      <h1 className="page-title">Cargar Nueva Lección / Video</h1>
+    <div className="p-8 max-w-4xl mx-auto">
+      <div className="mb-8">
+        <h1 className="text-3xl font-bold text-slate-900 tracking-tight">Cargar Nueva Lección / Video</h1>
+        <p className="text-slate-500 mt-2">Agrega contenido a tu catálogo de cursos de manera rápida y sencilla.</p>
+      </div>
       
-      <form onSubmit={handleSubmit} className="form-card">
-        <div className="form-group">
-          <label className="form-label">Título de la Lección</label>
-          <input 
-            type="text" 
-            required
-            className="form-input"
-            placeholder="Ej: Introducción a los Jugos Verdes"
-            value={title}
-            onChange={(e) => setTitle(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">Descripción</label>
-          <textarea 
-            rows={4}
-            className="form-input"
-            placeholder="Resumen del contenido de este video..."
-            value={description}
-            onChange={(e) => setDescription(e.target.value)}
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="form-label">Fuente del Video</label>
-          <div style={{ display: 'flex', gap: '24px', marginBottom: '16px' }}>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-              <input 
-                type="radio" 
-                name="source" 
-                checked={videoSource === 'url'} 
-                onChange={() => setVideoSource('url')}
-              />
-              <span style={{ color: 'var(--color-text-main)', fontSize: '14px' }}>URL Externa (Vimeo / Bunny Stream)</span>
-            </label>
-            <label style={{ display: 'flex', alignItems: 'center', gap: '8px', cursor: 'pointer' }}>
-              <input 
-                type="radio" 
-                name="source" 
-                checked={videoSource === 'upload'} 
-                onChange={() => setVideoSource('upload')}
-              />
-              <span style={{ color: 'var(--color-text-main)', fontSize: '14px' }}>Subida Directa (No recomendado)</span>
-            </label>
-          </div>
-
-          {videoSource === 'url' ? (
+      <form onSubmit={handleSubmit} className="premium-card p-8">
+        <div className="space-y-6">
+          <div>
+            <label className="form-label">Título de la Lección</label>
             <input 
-              type="url" 
+              type="text" 
               required
               className="form-input"
-              placeholder="https://vimeo.com/..."
-              value={videoUrl}
-              onChange={(e) => setVideoUrl(e.target.value)}
+              placeholder="Ej: Introducción a los Jugos Verdes"
+              value={title}
+              onChange={(e) => setTitle(e.target.value)}
             />
-          ) : (
-            <div style={{ border: '2px dashed var(--color-border)', borderRadius: 'var(--radius-lg)', padding: '32px', textAlign: 'center', cursor: 'pointer' }}>
-              <div style={{ color: 'var(--color-text-muted)', marginBottom: '8px' }}>Haz clic o arrastra un archivo de video aquí (MP4, MOV)</div>
-              <div style={{ fontSize: '12px', color: '#94a3b8' }}>Tamaño máximo recomendado: 500MB</div>
+          </div>
+
+          <div>
+            <label className="form-label">Descripción</label>
+            <textarea 
+              rows={4}
+              className="form-input resize-none"
+              placeholder="Resumen del contenido de este video..."
+              value={description}
+              onChange={(e) => setDescription(e.target.value)}
+            />
+          </div>
+
+          <div>
+            <label className="form-label">Fuente del Video</label>
+            <div className="flex flex-col sm:flex-row gap-4 mb-4">
+              <label className={`flex-1 flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${videoSource === 'url' ? 'border-primary-500 bg-primary-50/50' : 'border-slate-200 hover:border-primary-200 bg-slate-50'}`}>
+                <input 
+                  type="radio" 
+                  name="source" 
+                  className="hidden"
+                  checked={videoSource === 'url'} 
+                  onChange={() => setVideoSource('url')}
+                />
+                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${videoSource === 'url' ? 'border-primary-500' : 'border-slate-300'}`}>
+                  {videoSource === 'url' && <div className="w-2.5 h-2.5 bg-primary-500 rounded-full" />}
+                </div>
+                <LinkIcon className={videoSource === 'url' ? 'text-primary-500' : 'text-slate-400'} size={20} />
+                <div>
+                  <div className="font-semibold text-slate-700">URL Externa</div>
+                  <div className="text-xs text-slate-500">Vimeo / Bunny Stream</div>
+                </div>
+              </label>
+
+              <label className={`flex-1 flex items-center gap-3 p-4 rounded-xl border-2 cursor-pointer transition-all ${videoSource === 'upload' ? 'border-primary-500 bg-primary-50/50' : 'border-slate-200 hover:border-primary-200 bg-slate-50'}`}>
+                <input 
+                  type="radio" 
+                  name="source" 
+                  className="hidden"
+                  checked={videoSource === 'upload'} 
+                  onChange={() => setVideoSource('upload')}
+                />
+                <div className={`w-5 h-5 rounded-full border-2 flex items-center justify-center ${videoSource === 'upload' ? 'border-primary-500' : 'border-slate-300'}`}>
+                  {videoSource === 'upload' && <div className="w-2.5 h-2.5 bg-primary-500 rounded-full" />}
+                </div>
+                <UploadCloud className={videoSource === 'upload' ? 'text-primary-500' : 'text-slate-400'} size={20} />
+                <div>
+                  <div className="font-semibold text-slate-700">Subida Directa</div>
+                  <div className="text-xs text-slate-500">No recomendado</div>
+                </div>
+              </label>
             </div>
-          )}
+
+            {videoSource === 'url' ? (
+              <input 
+                type="url" 
+                required
+                className="form-input"
+                placeholder="https://vimeo.com/..."
+                value={videoUrl}
+                onChange={(e) => setVideoUrl(e.target.value)}
+              />
+            ) : (
+              <div className="border-2 border-dashed border-slate-300 rounded-xl p-10 text-center hover:bg-slate-50 transition-colors cursor-pointer group">
+                <div className="w-16 h-16 bg-slate-100 rounded-full flex items-center justify-center mx-auto mb-4 group-hover:bg-primary-50 group-hover:text-primary-500 transition-colors">
+                  <UploadCloud size={32} className="text-slate-400 group-hover:text-primary-500" />
+                </div>
+                <div className="text-slate-700 font-medium mb-1">Haz clic o arrastra un archivo de video aquí (MP4, MOV)</div>
+                <div className="text-sm text-slate-500">Tamaño máximo recomendado: 500MB</div>
+              </div>
+            )}
+          </div>
         </div>
 
-        <div style={{ display: 'flex', justifyContent: 'flex-end', paddingTop: '16px', borderTop: '1px solid var(--color-border)', marginTop: '24px' }}>
+        <div className="flex justify-end pt-6 border-t border-slate-100 mt-8">
           <button 
             type="submit" 
             disabled={isUploading}
-            className="btn-primary"
-            style={{ width: 'auto' }}
+            className={`flex items-center gap-2 px-6 py-3 rounded-xl font-semibold text-white transition-all ${
+              isUploading ? 'bg-primary-400 cursor-not-allowed' : 'bg-primary-500 hover:bg-primary-600 shadow-liquid transform hover:-translate-y-0.5'
+            }`}
           >
+            <CheckCircle2 size={20} />
             {isUploading ? 'Guardando...' : 'Guardar Lección'}
           </button>
         </div>
