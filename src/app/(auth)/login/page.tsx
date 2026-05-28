@@ -5,7 +5,7 @@ import { useRouter } from 'next/navigation';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { doc, getDoc } from 'firebase/firestore';
 import { auth, db } from '../../../lib/firebase/config';
-import { Mail, Lock, LogIn, AlertCircle } from 'lucide-react';
+import { Mail, Lock, LogIn, AlertCircle, Globe, Database } from 'lucide-react';
 
 export default function LoginPage() {
   const [email, setEmail] = useState('');
@@ -39,7 +39,22 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen bg-white flex flex-col items-center pt-24 px-4">
+    <div className="min-h-screen bg-white flex flex-col items-center pt-32 px-4 relative">
+      <header className="absolute top-0 left-0 w-full p-6 flex justify-between items-center">
+        <div>
+          <img src="/logo.png" alt="ALOEC Logo" className="h-10" />
+        </div>
+        <div className="flex items-center gap-6">
+          <div className="flex items-center gap-2 px-3 py-1.5 bg-ink-50 border border-ink-200 text-ink-700 text-xs font-bold rounded-full">
+            <Database size={14} className={db ? "text-[#00df68]" : "text-red-500"} />
+            {db ? "Firebase Sincronizado" : "Sin conexión"}
+          </div>
+          <a href="https://aloec.com" target="_blank" rel="noopener noreferrer" className="text-ink-500 hover:text-ink-900 transition-colors" title="Ir al sitio web">
+            <Globe size={24} />
+          </a>
+        </div>
+      </header>
+
       <div className="w-full max-w-sm">
         <div className="text-center mb-10">
           <h1 className="text-2xl font-bold text-ink-900 mb-2">ALOEC Admin</h1>
