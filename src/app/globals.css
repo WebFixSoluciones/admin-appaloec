@@ -4,36 +4,36 @@
 
 @layer base {
   body {
-    @apply bg-background text-slate-800 antialiased;
+    @apply bg-background text-ink-900 antialiased;
   }
 }
 
 @layer components {
-  /* Premium Containers */
+  /* Flat Minimal Containers (Dropbox style) */
   .premium-card {
-    @apply bg-surface rounded-2xl shadow-premium-md border border-slate-200 transition-all duration-300 hover:shadow-premium-lg;
+    @apply bg-white border border-ink-200;
   }
   
   /* Buttons */
   .btn-primary {
-    @apply w-full py-3 bg-primary-500 hover:bg-primary-600 text-white font-semibold rounded-xl shadow-liquid transition-all duration-300 transform hover:-translate-y-0.5 focus:ring-2 focus:ring-primary-400 focus:outline-none;
+    @apply w-full py-4 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-none transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-primary-400 focus:ring-offset-2;
   }
 
   .btn-primary-sm {
-    @apply px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-medium rounded-lg shadow-sm transition-all duration-300 hover:shadow-liquid;
+    @apply px-4 py-2 bg-primary-500 hover:bg-primary-600 text-white font-bold rounded-none transition-colors duration-200;
   }
 
   .btn-secondary {
-    @apply px-4 py-2 bg-white hover:bg-slate-50 text-slate-700 font-medium rounded-lg border border-slate-200 shadow-sm transition-all duration-300 hover:shadow-premium-sm;
+    @apply px-4 py-2 bg-white hover:bg-ink-50 text-ink-900 font-bold rounded-none border border-ink-200 transition-colors duration-200;
   }
 
   /* Form Elements */
   .form-input {
-    @apply w-full p-3 bg-slate-50 border border-slate-200 rounded-xl outline-none focus:ring-2 focus:ring-primary-500 focus:bg-white transition-all duration-300 text-slate-700;
+    @apply w-full p-4 bg-white border border-ink-300 rounded-none outline-none focus:ring-0 focus:border-ink-900 transition-colors text-ink-900;
   }
 
   .form-label {
-    @apply block text-sm font-semibold text-slate-700 mb-2;
+    @apply block text-sm font-bold text-ink-900 mb-2;
   }
 
   /* Layout */
@@ -46,10 +46,11 @@
   }
 
   .page-title {
-    @apply text-3xl font-bold text-slate-900 tracking-tight;
+    @apply text-3xl font-bold text-ink-900 tracking-tight;
   }
 
   .empty-state {
-    @apply premium-card p-12 flex flex-col items-center justify-center text-center border-dashed border-2 bg-slate-50/50;
+    @apply bg-white border border-ink-200 p-12 flex flex-col items-center justify-center text-center;
   }
 }
+

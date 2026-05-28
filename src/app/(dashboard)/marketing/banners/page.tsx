@@ -14,9 +14,9 @@ export default function BannersPage() {
         </div>
       </div>
       <div className="empty-state">
-        <ImageIcon size={48} className="text-slate-300 mb-4" />
-        <h3 className="text-lg font-semibold text-slate-700 mb-1">Sin Banners</h3>
-        <p className="text-slate-500 max-w-sm">TBD - Conectar con Firebase Storage para la gestión de banners.</p>
+        <ImageIcon size={48} className="text-ink-300 mb-4" />
+        <h3 className="text-lg font-semibold text-ink-700 mb-1">Sin Banners</h3>
+        <p className="text-ink-500 max-w-sm">TBD - Conectar con Firebase Storage para la gestión de banners.</p>
       </div>
     </div>
   );

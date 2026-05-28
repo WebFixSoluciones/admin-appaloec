@@ -45,12 +45,12 @@ export default function DashboardLayout({
 
   return (
     <AuthGuard>
-      <div className="min-h-screen bg-slate-50 flex">
+      <div className="min-h-screen bg-white flex">
         {/* Sidebar */}
-        <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-slate-200 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'translate-x-0' : '-translate-x-full'} md:translate-x-0 md:static`}>
-          <div className="h-16 flex items-center justify-between px-6 border-b border-slate-100">
-            <h2 className="text-xl font-bold bg-gradient-to-r from-primary-600 to-primary-400 bg-clip-text text-transparent">ALOEC Admin</h2>
-            <button onClick={() => setSidebarOpen(false)} className="md:hidden text-slate-500 hover:text-slate-700">
+        <aside className={`fixed inset-y-0 left-0 z-50 w-64 bg-white border-r border-ink-200 transform transition-transform duration-300 ease-in-out ${sidebarOpen ? 'tranink-x-0' : '-tranink-x-full'} md:tranink-x-0 md:static`}>
+          <div className="h-16 flex items-center justify-between px-6 border-b border-ink-200">
+            <h2 className="text-xl font-bold text-ink-900">ALOEC Admin</h2>
+            <button onClick={() => setSidebarOpen(false)} className="md:hidden text-ink-500 hover:text-ink-900">
               <X size={20} />
             </button>
           </div>
@@ -62,34 +62,34 @@ export default function DashboardLayout({
                 <Link
                   key={item.name}
                   href={item.href}
-                  className={`flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200 ${
+                  className={`flex items-center gap-3 px-4 py-3 transition-colors duration-200 ${
                     isActive 
-                      ? 'bg-primary-50 text-primary-600 font-medium' 
-                      : 'text-slate-600 hover:bg-slate-50 hover:text-slate-900'
+                      ? 'bg-ink-50 text-ink-900 font-bold' 
+                      : 'text-ink-600 hover:bg-ink-50 hover:text-ink-900 font-medium'
                   }`}
                 >
-                  <Icon size={20} className={isActive ? 'text-primary-500' : 'text-slate-400'} />
+                  <Icon size={20} className={isActive ? 'text-ink-900' : 'text-ink-500'} />
                   {item.name}
                 </Link>
               );
             })}
           </nav>
-          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-slate-100">
+          <div className="absolute bottom-0 left-0 right-0 p-4 border-t border-ink-200">
             <button
               onClick={handleLogout}
-              className="flex items-center gap-3 w-full px-4 py-3 text-slate-600 hover:bg-slate-50 hover:text-red-600 rounded-xl transition-colors"
+              className="flex items-center gap-3 w-full px-4 py-3 text-ink-600 hover:bg-ink-50 hover:text-red-600 font-medium transition-colors"
             >
-              <LogOut size={20} className="text-slate-400 group-hover:text-red-500" />
+              <LogOut size={20} className="text-ink-500 group-hover:text-red-600" />
               Cerrar Sesión
             </button>
           </div>
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 flex flex-col min-h-screen overflow-hidden">
+        <main className="flex-1 flex flex-col min-h-screen overflow-hidden bg-white">
           {/* Topbar for mobile */}
-          <header className="h-16 bg-white border-b border-slate-200 flex items-center px-4 md:hidden">
-            <button onClick={() => setSidebarOpen(true)} className="text-slate-600 hover:text-slate-900">
+          <header className="h-16 bg-white border-b border-ink-200 flex items-center px-4 md:hidden">
+            <button onClick={() => setSidebarOpen(true)} className="text-ink-600 hover:text-ink-900">
               <Menu size={24} />
             </button>
           </header>

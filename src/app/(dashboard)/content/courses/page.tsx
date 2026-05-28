@@ -19,9 +19,9 @@ export default function CoursesPage() {
         </div>
       </div>
       <div className="empty-state">
-        <Film size={48} className="text-slate-300 mb-4" />
-        <h3 className="text-lg font-semibold text-slate-700 mb-1">Aún no hay cursos</h3>
-        <p className="text-slate-500 max-w-sm">TBD - Conectar con Firestore para gestionar y visualizar tu catálogo de cursos.</p>
+        <Film size={48} className="text-ink-300 mb-4" />
+        <h3 className="text-lg font-semibold text-ink-700 mb-1">Aún no hay cursos</h3>
+        <p className="text-ink-500 max-w-sm">TBD - Conectar con Firestore para gestionar y visualizar tu catálogo de cursos.</p>
       </div>
     </div>
   );

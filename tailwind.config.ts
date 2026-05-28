@@ -10,51 +10,38 @@ const config: Config = {
     extend: {
       colors: {
         primary: {
-          50: '#ecfdf5',
-          100: '#d1fae5',
-          200: '#a7f3d0',
-          300: '#6ee7b7',
-          400: '#34d399',
-          500: '#10b981', // Main premium green
-          600: '#059669',
-          700: '#047857',
-          800: '#065f46',
-          900: '#064e3b',
+          50: '#e6fcf0',
+          100: '#ccf8e1',
+          200: '#99f2c3',
+          300: '#66eba5',
+          400: '#33e587',
+          500: '#00df68', // Vibrant 1000% Green
+          600: '#00b353',
+          700: '#00863e',
+          800: '#00592a',
+          900: '#002d15',
         },
-        slate: {
-          50: '#f8fafc',
-          100: '#f1f5f9',
-          200: '#e2e8f0',
-          300: '#cbd5e1',
-          400: '#94a3b8',
-          500: '#64748b',
-          600: '#475569',
-          700: '#334155',
-          800: '#1e293b',
-          900: '#0f172a',
+        ink: {
+          50: '#f9f9f9',
+          100: '#f2f2f2',
+          200: '#e6e6e6', // Borders
+          300: '#cccccc',
+          400: '#b3b3b3',
+          500: '#999999',
+          600: '#666666',
+          700: '#4d4d4d',
+          800: '#333333', // Secondary text
+          900: '#1a1a1a', // Primary text
         },
         surface: '#ffffff',
-        background: '#f8fafc',
+        background: '#ffffff',
       },
       fontFamily: {
         sans: ['Inter', 'sans-serif'],
       },
       boxShadow: {
-        'premium-sm': '0 2px 8px -2px rgba(15, 23, 42, 0.05), 0 1px 4px -1px rgba(15, 23, 42, 0.03)',
-        'premium-md': '0 12px 24px -4px rgba(15, 23, 42, 0.04), 0 4px 12px -2px rgba(15, 23, 42, 0.03)',
-        'premium-lg': '0 20px 40px -8px rgba(15, 23, 42, 0.06), 0 8px 16px -4px rgba(15, 23, 42, 0.04)',
-        'liquid': '0 8px 30px rgba(16, 185, 129, 0.2)',
+        'none': 'none',
       },
-      animation: {
-        'float': 'float 3s ease-in-out infinite',
-        'pulse-slow': 'pulse 3s cubic-bezier(0.4, 0, 0.6, 1) infinite',
-      },
-      keyframes: {
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-10px)' },
-        }
-      }
     },
   },
   plugins: [],
