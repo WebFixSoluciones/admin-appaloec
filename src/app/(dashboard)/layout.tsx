@@ -6,6 +6,7 @@ import { usePathname, useRouter } from 'next/navigation';
 import { auth } from '../../lib/firebase/config';
 import { signOut } from 'firebase/auth';
 import AuthGuard from '../../components/AuthGuard';
+import { toast } from 'sonner';
 import { 
   LayoutDashboard, 
   Users, 
@@ -29,9 +30,11 @@ export default function DashboardLayout({
   const handleLogout = async () => {
     try {
       await signOut(auth);
+      toast.success('Sesión cerrada correctamente');
       router.push('/login');
     } catch (error) {
       console.error('Error al cerrar sesión', error);
+      toast.error('Error al cerrar sesión');
     }
   };
 

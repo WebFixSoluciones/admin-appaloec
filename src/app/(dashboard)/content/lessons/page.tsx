@@ -2,6 +2,7 @@
 
 import React, { useState } from 'react';
 import { UploadCloud, Link as LinkIcon, CheckCircle2 } from 'lucide-react';
+import { toast } from 'sonner';
 
 export default function VideoUploadPage() {
   const [title, setTitle] = useState('');
@@ -12,9 +13,20 @@ export default function VideoUploadPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!title) {
+      toast.error('El título es obligatorio');
+      return;
+    }
+    if (videoSource === 'url' && !videoUrl) {
+      toast.error('La URL del video es obligatoria');
+      return;
+    }
+
     setIsUploading(true);
+    const toastId = toast.loading('Guardando lección...');
+
     setTimeout(() => {
-      alert('Video guardado correctamente en la base de datos (Vimeo/CDN)');
+      toast.success('Lección guardada correctamente', { id: toastId });
       setIsUploading(false);
       setTitle('');
       setDescription('');
