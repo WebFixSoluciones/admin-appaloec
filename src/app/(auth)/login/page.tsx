@@ -46,7 +46,7 @@ export default function LoginPage() {
         </div>
         <div className="flex items-center gap-6">
           <div className="flex items-center gap-2 px-3 py-1.5 bg-ink-50 border border-ink-200 text-ink-700 text-xs font-bold rounded-full">
-            <Database size={14} className={db ? "text-[#00df68]" : "text-red-500"} />
+            <Database size={14} className={db ? "text-primary-500" : "text-red-500"} />
             {db ? "Firebase Sincronizado" : "Sin conexión"}
           </div>
           <a href="https://aloec.com" target="_blank" rel="noopener noreferrer" className="text-ink-500 hover:text-ink-900 transition-colors" title="Ir al sitio web">
@@ -97,13 +97,17 @@ export default function LoginPage() {
 
           <button 
             type="submit" 
-            className="w-full py-4 bg-[#00df68] hover:bg-[#00c65c] text-white font-bold transition-colors duration-200 flex justify-center items-center gap-2 mt-4"
+            className="w-full py-4 bg-primary-500 hover:bg-primary-600 text-white font-bold transition-colors duration-200 flex justify-center items-center gap-2 mt-4"
             disabled={loading}
           >
             {loading ? 'Iniciando sesión...' : 'Continuar'}
           </button>
         </form>
       </div>
+
+      <footer className="absolute bottom-0 left-0 w-full p-6 text-center text-sm text-ink-500">
+        Desarrollado por <a href="https://webfixsoluciones.net" target="_blank" rel="noopener noreferrer" className="text-primary-500 hover:underline font-bold">Web Fix</a>
+      </footer>
     </div>
   );
 }
