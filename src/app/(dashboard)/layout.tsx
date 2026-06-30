@@ -22,7 +22,8 @@ import {
   Database,
   LogOut,
   Menu,
-  X
+  X,
+  ClipboardList
 } from 'lucide-react';
 
 export default function DashboardLayout({
@@ -51,6 +52,7 @@ export default function DashboardLayout({
     { name: 'Recetas y Jugos', href: '/content/juices', icon: Droplet },
     { name: 'Cursos', href: '/content/courses', icon: Video },
     { name: 'Lecciones', href: '/content/lessons', icon: Play },
+    { name: 'Protocolos IMC', href: '/content/protocols', icon: ClipboardList },
     { name: 'Membresías', href: '/memberships', icon: CreditCard },
     { name: 'Pasarelas de Pago', href: '/gateways', icon: ShieldAlert },
     { name: 'Pagos y Facturas', href: '/billing', icon: Receipt },
