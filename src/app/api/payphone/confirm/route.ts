@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { getAdminDb } from '../../../../lib/firebase/admin';
-import { getPayphoneConfig, getPaymentStatus } from '../../../../lib/payphone/client';
+import { getPayphoneConfig, confirmPayment } from '../../../../lib/payphone/client';
 import { FieldValue } from 'firebase-admin/firestore';
 
 export async function GET(req: NextRequest) {
@@ -16,7 +16,7 @@ export async function GET(req: NextRequest) {
 
   try {
     const config = await getPayphoneConfig();
-    const status = await getPaymentStatus(paymentId, config);
+    const status = await confirmPayment(paymentId, clientTransactionId, config);
     const db = getAdminDb();
 
     const ordersSnap = await db

@@ -42,7 +42,7 @@ export default async function CheckoutPage({ searchParams }: CheckoutPageProps) 
     return <ErrorView message="Error al cargar los datos del plan." />;
   }
 
-  const clientTransactionId = `ALOEC-${userId.slice(0, 8)}-${Date.now()}`;
+  const clientTransactionId = `AL${userId.slice(0, 5)}${Date.now().toString().slice(-8)}`;
   const orderId = `order_${Date.now()}`;
 
   try {
