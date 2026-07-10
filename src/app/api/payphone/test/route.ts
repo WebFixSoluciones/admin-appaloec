@@ -19,7 +19,7 @@ export async function GET() {
       ? `${token.slice(0, 20)}...${token.slice(-10)} (${token.length} chars)`
       : 'VACÍO';
 
-    // Intento real a Payphone con body mínimo
+    // Intento real a Payphone con body mínimo (sin storeId ni caracteres especiales)
     const url = 'https://pay.payphonetodoesposible.com/api/Links';
     const body = {
       amount: 100,
@@ -28,7 +28,7 @@ export async function GET() {
       tax: 0,
       currency: 'USD',
       clientTransactionId: 'TEST001',
-      reference: 'Test diagnóstico',
+      reference: 'Test pago ALOEC',
     };
 
     const res = await fetch(url, {

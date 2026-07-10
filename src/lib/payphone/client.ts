@@ -62,14 +62,16 @@ export async function createPaymentLink(
   // API Links acepta máximo 15 caracteres en clientTransactionId
   const txId = clientTransactionId.slice(0, 15);
 
+  // Sanitizar reference: Payphone no acepta caracteres especiales/tildes
+  const safeReference = reference.normalize('NFD').replace(/[\u0300-\u036f]/g, '').slice(0, 50);
+
   const body: Record<string, unknown> = {
     amount: amountCents,
     amountWithoutTax: amountCents,
     amountWithTax: 0,
     tax: 0,
     clientTransactionId: txId,
-    reference,
-    storeId: config.storeId,
+    reference: safeReference,
     currency: 'USD',
     email: email || 'cliente@aloec.com',
   };
