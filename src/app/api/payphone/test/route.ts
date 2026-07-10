@@ -19,45 +19,42 @@ export async function GET() {
       ? `${token.slice(0, 20)}...${token.slice(-10)} (${token.length} chars)`
       : 'VACÍO';
 
-    // Intento real a Payphone con body mínimo (sin storeId ni caracteres especiales)
     const url = 'https://pay.payphonetodoesposible.com/api/Links';
-    const body = {
+    const uniqueTxId = `AL${Date.now().toString().slice(-13)}`.slice(0, 15);
+
+    // Prueba A: sin storeId
+    const bodyA = {
       amount: 100,
       amountWithoutTax: 100,
       amountWithTax: 0,
       tax: 0,
+      service: 0,
+      tip: 0,
       currency: 'USD',
-      clientTransactionId: 'TEST001',
+      clientTransactionId: uniqueTxId,
       reference: 'Test pago ALOEC',
     };
 
-    const res = await fetch(url, {
+    const resA = await fetch(url, {
       method: 'POST',
-      headers: {
-        Authorization: `Bearer ${token}`,
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(body),
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(bodyA),
     });
+    const textA = await resA.text();
 
-    const responseText = await res.text();
+    // Prueba B: con storeId
+    const bodyB = { ...bodyA, clientTransactionId: `B${uniqueTxId}`.slice(0, 15), storeId };
+    const resB = await fetch(url, {
+      method: 'POST',
+      headers: { Authorization: `Bearer ${token}`, 'Content-Type': 'application/json' },
+      body: JSON.stringify(bodyB),
+    });
+    const textB = await resB.text();
 
     return NextResponse.json({
-      firestoreFields: {
-        isActive: data.isActive,
-        environment: data.environment,
-        tokenLength: token.length,
-        tokenPreview,
-        storeId,
-      },
-      payphoneRequest: {
-        url,
-        bodyEnviado: body,
-      },
-      payphoneResponse: {
-        status: res.status,
-        body: responseText.slice(0, 3000),
-      },
+      firestoreFields: { isActive: data.isActive, environment: data.environment, tokenLength: token.length, tokenPreview, storeId },
+      pruebaA_sinStoreId: { status: resA.status, body: textA.slice(0, 1000) },
+      pruebaB_conStoreId: { status: resB.status, body: textB.slice(0, 1000) },
     });
   } catch (err: unknown) {
     return NextResponse.json({ error: err instanceof Error ? err.message : String(err) });
