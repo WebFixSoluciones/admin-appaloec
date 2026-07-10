@@ -41,10 +41,8 @@ function linksUrl(isSandbox: boolean): string {
     : 'https://pay.payphonetodoesposible.com/api/Links';
 }
 
-function confirmUrl(isSandbox: boolean): string {
-  return isSandbox
-    ? 'https://pay.payphonetodoesposible.com/api/confirm'
-    : 'https://pay.payphonetodoesposible.com/api/confirm';
+function confirmUrl(): string {
+  return 'https://paymentbox.payphonetodoesposible.com/api/confirm';
 }
 
 function headers(token: string): Record<string, string> {
@@ -103,7 +101,7 @@ export async function confirmPayment(
   clientTxId: string,
   config: PayphoneConfig
 ): Promise<PayphoneStatus> {
-  const res = await fetch(confirmUrl(config.isSandbox), {
+  const res = await fetch(confirmUrl(), {
     method: 'POST',
     headers: headers(config.token),
     body: JSON.stringify({ id: paymentId, clientTxId }),
