@@ -37,14 +37,14 @@ export async function getPayphoneConfig(): Promise<PayphoneConfig> {
 
 function linksUrl(isSandbox: boolean): string {
   return isSandbox
-    ? 'https://sandbox-api.payphonetodoesposible.com/api/Links'
-    : 'https://api.payphonetodoesposible.com/api/Links';
+    ? 'https://pay.payphonetodoesposible.com/api/Links'
+    : 'https://pay.payphonetodoesposible.com/api/Links';
 }
 
 function confirmUrl(isSandbox: boolean): string {
   return isSandbox
-    ? 'https://sandbox-api.payphonetodoesposible.com/api/confirm'
-    : 'https://api.payphonetodoesposible.com/api/confirm';
+    ? 'https://pay.payphonetodoesposible.com/api/confirm'
+    : 'https://pay.payphonetodoesposible.com/api/confirm';
 }
 
 function headers(token: string): Record<string, string> {
@@ -74,7 +74,10 @@ export async function createPaymentLink(
     email: email || 'cliente@aloec.com',
   };
 
-  const res = await fetch(linksUrl(config.isSandbox), {
+  const url = linksUrl(config.isSandbox);
+  console.log('[payphone] POST', url, 'storeId:', config.storeId, 'txId:', txId);
+
+  const res = await fetch(url, {
     method: 'POST',
     headers: headers(config.token),
     body: JSON.stringify(body),
@@ -82,6 +85,7 @@ export async function createPaymentLink(
 
   const text = await res.text();
   if (!res.ok) {
+    console.error('[payphone] error', res.status, text.slice(0, 500));
     throw new Error(`Payphone HTTP ${res.status}: ${text.slice(0, 300)}`);
   }
 
