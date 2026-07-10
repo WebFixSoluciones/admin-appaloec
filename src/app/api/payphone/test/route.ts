@@ -56,7 +56,7 @@ export async function GET() {
       },
       payphoneResponse: {
         status: res.status,
-        body: responseText.slice(0, 500),
+        body: responseText.slice(0, 3000),
       },
     });
   } catch (err: unknown) {
