@@ -47,11 +47,16 @@ export async function POST(req: NextRequest) {
       });
 
       const userRef = db.collection('users').doc(orderData.userId);
-      batch.update(userRef, {
+      batch.set(userRef, {
+        email: orderData.userEmail || '',
+        displayName: orderData.userEmail?.split('@')[0] || 'Usuario',
         isPremium: true,
+        role: 'user',
+        status: 'active',
         membershipId: orderData.membershipId,
         membershipUpdatedAt: FieldValue.serverTimestamp(),
-      });
+        createdAt: FieldValue.serverTimestamp(),
+      }, { merge: true });
 
       await batch.commit();
       return NextResponse.json({ ok: true, status: 'paid' });
