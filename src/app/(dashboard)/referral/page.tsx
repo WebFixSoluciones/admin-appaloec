@@ -125,72 +125,83 @@ export default function ReferralPage() {
   }
 
   async function loadAffiliates() {
-    const snap = await getDocs(query(collection(db, 'users'), where('referral.code', '!=', ''), orderBy('referral.code'), limit(200)));
-    const items: AffiliateItem[] = [];
-    let totalPend = 0, totalAppr = 0, totalPaid = 0, totalComm = 0;
-    snap.forEach(doc => {
-      const d = doc.data();
-      const ref = d.referral || {};
-      const bal = d.affiliateBalance || {};
-      if (ref.code) {
-        items.push({
-          uid: doc.id, email: d.email || '', displayName: d.displayName || '',
-          referralCode: ref.code, balance: { pendingUSD: bal.pendingUSD || 0, approvedUSD: bal.approvedUSD || 0, paidUSD: bal.paidUSD || 0 },
-          referredCount: 0, createdAt: d.createdAt
-        });
-        totalPend += bal.pendingUSD || 0;
-        totalAppr += bal.approvedUSD || 0;
-        totalPaid += bal.paidUSD || 0;
+    try {
+      const snap = await getDocs(collection(db, 'users'));
+      const items: AffiliateItem[] = [];
+      let totalPend = 0, totalAppr = 0, totalPaid = 0, totalComm = 0;
+      snap.forEach(doc => {
+        const d = doc.data();
+        const ref = d.referral || {};
+        const bal = d.affiliateBalance || {};
+        if (ref.code && ref.code.length > 0) {
+          items.push({
+            uid: doc.id, email: d.email || '', displayName: d.displayName || '',
+            referralCode: ref.code,
+            balance: { pendingUSD: Number(bal.pendingUSD || 0), approvedUSD: Number(bal.approvedUSD || 0), paidUSD: Number(bal.paidUSD || 0) },
+            referredCount: 0, createdAt: d.createdAt
+          });
+          totalPend += Number(bal.pendingUSD || 0);
+          totalAppr += Number(bal.approvedUSD || 0);
+          totalPaid += Number(bal.paidUSD || 0);
+        }
+      });
+
+      for (const a of items) {
+        try {
+          const evSnap = await getDocs(query(collection(db, 'referral_events'),
+            where('referrerUid', '==', a.uid), where('type', '==', 'registered')));
+          a.referredCount = evSnap.size;
+        } catch (_) {}
       }
-    });
 
-    // Count referrals
-    for (const a of items) {
-      const evSnap = await getDocs(query(collection(db, 'referral_events'), where('referrerUid', '==', a.uid), where('type', '==', 'registered')));
-      a.referredCount = evSnap.size;
+      try {
+        const commSnap = await getDocs(collection(db, 'commissions'));
+        totalComm = commSnap.size;
+      } catch (_) {}
+
+      setAffiliates(items);
+      setKpi({ totalAffiliates: items.length, totalCommissions: totalComm, pendingUSD: totalPend, approvedUSD: totalAppr, paidUSD: totalPaid });
+    } catch (e: any) {
+      console.error('loadAffiliates', e);
+      toast.error('Error afiliados: ' + (e.message || ''));
     }
-
-    // Commission count
-    const commSnap = await getDocs(collection(db, 'commissions'));
-    totalComm = commSnap.size;
-
-    setAffiliates(items);
-    setKpi({ totalAffiliates: items.length, totalCommissions: totalComm, pendingUSD: totalPend, approvedUSD: totalAppr, paidUSD: totalPaid });
   }
 
   async function loadCommissions() {
-    const snap = await getDocs(query(collection(db, 'commissions'), orderBy('createdAt', 'desc'), limit(200)));
-    const items: CommissionItem[] = [];
-    for (const d of snap.docs) {
-      const data = d.data();
-      const refUser = await getDocs(query(collection(db, 'users'), where('referral.code', '==', data.referralCode || '')));
-      let refName = '';
-      if (!refUser.empty) refName = refUser.docs[0].data().displayName || '';
-      items.push({
-        id: d.id, referrerUid: data.referrerUid, referrerName: refName, referrerCode: data.referralCode || '',
-        referredUid: data.referredUid, triggerType: data.triggerType, amountUSD: data.amountUSD || 0,
-        status: data.status || 'pending', createdAt: data.createdAt, releasedAt: data.releasedAt
-      });
+    try {
+      const snap = await getDocs(query(collection(db, 'commissions'), orderBy('createdAt', 'desc'), limit(200)));
+      const items: CommissionItem[] = [];
+      for (const d of snap.docs) {
+        const data = d.data();
+        items.push({
+          id: d.id, referrerUid: data.referrerUid || '', referrerName: '', referrerCode: data.referralCode || '',
+          referredUid: data.referredUid || '', triggerType: data.triggerType || '', amountUSD: Number(data.amountUSD || 0),
+          status: data.status || 'pending', createdAt: data.createdAt, releasedAt: data.releasedAt
+        });
+      }
+      setCommissions(items);
+    } catch (e: any) {
+      console.error('loadCommissions', e);
+      toast.error('Error comisiones: ' + (e.message || ''));
     }
-    setCommissions(items);
   }
 
   async function loadPayouts() {
-    const snap = await getDocs(query(collection(db, 'payouts'), orderBy('createdAt', 'desc'), limit(200)));
-    const items: PayoutItem[] = [];
-    for (const d of snap.docs) {
-      const data = d.data();
-      let userName = '';
-      try {
-        const uDoc = await getDocs(query(collection(db, 'users'), where('__name__', '==', data.uid)));
-        if (!uDoc.empty) userName = uDoc.docs[0].data().displayName || '';
-      } catch (_) { }
-      items.push({
-        id: d.id, uid: data.uid, userName, amountUSD: data.amountUSD || 0,
-        methodSnapshot: data.methodSnapshot || {}, status: data.status || 'pending', createdAt: data.createdAt
-      });
+    try {
+      const snap = await getDocs(query(collection(db, 'payouts'), orderBy('createdAt', 'desc'), limit(200)));
+      const items: PayoutItem[] = [];
+      for (const d of snap.docs) {
+        const data = d.data();
+        items.push({
+          id: d.id, uid: data.uid || '', userName: '', amountUSD: Number(data.amountUSD || 0),
+          methodSnapshot: data.methodSnapshot || {}, status: data.status || 'pending', createdAt: data.createdAt
+        });
+      }
+      setPayouts(items);
+    } catch (e: any) {
+      console.error('loadPayouts', e);
+      toast.error('Error pagos: ' + (e.message || ''));
     }
-    setPayouts(items);
   }
 
   async function saveConfig() {
