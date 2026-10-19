@@ -288,102 +288,72 @@ function LandingContent() {
         </div>
       </header>
 
-      {/* ── Hero Section (Book + App Offer) ────────────────────────────────── */}
-      <section id="libro-app" className="relative pt-12 pb-20 lg:pt-20 lg:pb-32 overflow-hidden bg-gradient-to-b from-emerald-50/50 via-white to-slate-50">
-        <div className="absolute top-0 right-0 -mr-20 -mt-20 w-96 h-96 bg-emerald-200/40 rounded-full blur-3xl pointer-events-none"></div>
-        <div className="absolute bottom-0 left-0 -ml-20 -mb-20 w-96 h-96 bg-green-200/30 rounded-full blur-3xl pointer-events-none"></div>
-
-        <div className="w-[90%] max-w-[1600px] mx-auto px-2 sm:px-4 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
+      {/* ── Hero Section (Brevo-Style Redesign for ALOEC) ──────────────────── */}
+      <section id="libro-app" className="relative pt-12 pb-16 lg:pt-16 lg:pb-24 overflow-hidden bg-[#C0FFA5] rounded-b-[2.5rem] lg:rounded-b-[3.5rem]">
+        <div className="w-[90%] max-w-[1600px] mx-auto px-2 sm:px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-10 lg:gap-12 items-center">
             
-            {/* Hero Left Content */}
-            <div className="lg:col-span-7 space-y-8 text-center lg:text-left">
+            {/* Hero Left Content (Matching Brevo style) */}
+            <div className="lg:col-span-7 space-y-6 text-left">
               
-              {/* Domain & Offer Pill */}
-              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 bg-emerald-100/80 border border-emerald-300/60 rounded-full text-emerald-800 text-xs font-bold shadow-xs">
-                <BookOpen className="w-4 h-4 text-emerald-700 animate-bounce" />
-                <span>Libro Best-Seller + Acceso Completo a la App ALOEC</span>
-              </div>
-
               {/* Main Headline */}
-              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold tracking-tight text-slate-900 leading-[1.15]">
-                Transforma tu salud con el Libro <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-700 via-green-600 to-emerald-500 font-black">"Ama Lo Que Comes"</span> y la App ALOEC.
+              <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-950 leading-[1.12]">
+                Transforma tu salud con el libro <span className="underline decoration-slate-900/25 underline-offset-8">"Ama Lo Que Comes"</span> y la App ALOEC
               </h1>
 
               {/* Subtitle */}
-              <p className="text-lg sm:text-xl text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-                Al adquirir el libro oficial de medicina integrativa y jugoterapia (por José Rengifo), obtienes de forma automatizada tu cuenta de acceso a la <strong>App ALOEC</strong> para calcular tu IMC, recibir tu protocolo médico personalizado y acceder a videocursos y recetas.
+              <p className="text-base sm:text-lg text-slate-800 font-medium leading-relaxed max-w-xl">
+                Una plataforma única para tu nutrición y medicina integrativa. Recetas de jugoterapia curativa, calculadora biológica de IMC y 9 protocolos guiados día a día por José Rengifo.
               </p>
 
-              {/* Action Buttons */}
-              <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-2">
+              {/* Brevo-Style Solid Black CTA Button */}
+              <div className="pt-2 flex flex-wrap items-center gap-3.5">
                 <a
                   href="#precios"
-                  className="w-full sm:w-auto px-8 py-4 bg-emerald-600 hover:bg-emerald-700 text-white font-black text-base rounded-2xl shadow-xl hover:shadow-emerald-600/30 transition-all flex items-center justify-center gap-3 transform active:scale-95"
+                  className="inline-flex items-center justify-center px-8 py-4 bg-slate-950 hover:bg-black text-white text-base font-extrabold rounded-2xl shadow-lg hover:shadow-xl transition-all transform hover:-translate-y-0.5 active:scale-95"
                 >
-                  <BookOpen className="w-5 h-5 text-amber-300" /> Adquirir Libro + App Incluida →
+                  Comprar Libro + App
+                </a>
+
+                <a
+                  href="#calculadora"
+                  className="inline-flex items-center justify-center px-6 py-4 bg-white/85 hover:bg-white text-slate-950 text-sm font-extrabold rounded-2xl border border-black/10 shadow-xs transition-all hover:-translate-y-0.5"
+                >
+                  <Calculator className="w-4 h-4 mr-2 text-emerald-800" /> Calcular IMC Gratis
                 </a>
               </div>
 
-              {/* Download Store Badges */}
-              <div className="pt-2 flex flex-wrap items-center justify-center lg:justify-start gap-3">
-                <GooglePlayButton />
-                <AppStoreButton onClick={() => setShowAppStoreModal(true)} />
-              </div>
+              {/* Brevo-Style Trust Indicator & Rating */}
+              <div className="pt-3 space-y-2.5 text-xs text-slate-800 font-medium">
+                <p className="flex flex-wrap items-center gap-x-2 gap-y-1">
+                  <span>Atención y soporte en español 🇪🇨</span>
+                  <span>·</span>
+                  <span>Libro digital incluido</span>
+                  <span>·</span>
+                  <span>Disponible en Android, iOS y Web</span>
+                </p>
 
-              {/* Trust Indicators */}
-              <div className="pt-4 border-t border-slate-200/80 flex flex-wrap items-center justify-center lg:justify-start gap-6 text-xs text-slate-600 font-medium">
-                <div className="flex items-center gap-1.5">
-                  <ShieldCheck className="w-4 h-4 text-emerald-600" />
-                  <span>Pago Internacional Seguro (PayPhone)</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <Star className="w-4 h-4 text-amber-400 fill-amber-400" />
-                  <span>4.9 / 5 Valoración de Lectores</span>
-                </div>
-                <div className="flex items-center gap-1.5">
-                  <CheckCircle2 className="w-4 h-4 text-emerald-600" />
-                  <span>Acceso Inmediato en Smartphone y Web</span>
+                <div className="inline-flex items-center gap-2 bg-white/80 backdrop-blur-xs px-3.5 py-1.5 rounded-full border border-black/5 shadow-xs">
+                  <div className="flex items-center text-amber-500">
+                    {[...Array(5)].map((_, i) => (
+                      <Star key={i} className="w-3.5 h-3.5 fill-amber-400 text-amber-500" />
+                    ))}
+                  </div>
+                  <span className="font-black text-slate-950 text-xs">4.9 / 5</span>
+                  <span className="text-slate-600 font-medium text-[11px]">(+10,000 lectores y pacientes)</span>
                 </div>
               </div>
 
             </div>
 
-            {/* Hero Right Visual: Book Cover Photo + App Interactive Mockup */}
-            <div className="lg:col-span-5 flex justify-center">
-              <div className="relative w-full max-w-md">
-                
-                {/* Decorative glow background */}
-                <div className="absolute -inset-4 bg-gradient-to-tr from-emerald-500 to-green-300 rounded-[3rem] blur-2xl opacity-40 animate-pulse"></div>
-
-                {/* Unified Book Photo Card */}
-                <div className="relative bg-white rounded-3xl p-3 shadow-2xl border border-slate-200 overflow-hidden group">
-                  <div className="relative rounded-2xl overflow-hidden aspect-square bg-slate-100">
-                    <img 
-                      src="/book_hero.jpg" 
-                      alt="Libro Ama Lo Que Comes y App ALOEC" 
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
-                    />
-                    
-                    {/* Floating Offer Badge */}
-                    <div className="absolute bottom-4 left-4 right-4 bg-slate-900/90 backdrop-blur-md text-white p-3 rounded-2xl border border-white/20 shadow-lg flex items-center justify-between">
-                      <div className="flex items-center gap-3">
-                        <div className="w-10 h-10 bg-emerald-500 text-slate-950 rounded-xl flex items-center justify-center font-black text-lg shrink-0">
-                          📖
-                        </div>
-                        <div>
-                          <p className="text-xs font-black text-white">Ama Lo Que Comes</p>
-                          <p className="text-[10px] text-emerald-300 font-bold">Por José Rengifo · Incluye App ALOEC</p>
-                        </div>
-                      </div>
-                      <span className="bg-emerald-500 text-slate-950 font-black text-[10px] px-2.5 py-1 rounded-full uppercase">
-                        OFERTA
-                      </span>
-                    </div>
-
-                  </div>
-                </div>
-
+            {/* Hero Right Visual: Clean, borderless image without white padding or overlays (Brevo Style) */}
+            <div className="lg:col-span-5 flex justify-center lg:justify-end">
+              <div className="w-full max-w-md lg:max-w-lg">
+                <img 
+                  src="/book_hero.jpg" 
+                  alt="Libro Ama Lo Que Comes y App ALOEC" 
+                  className="w-full h-auto rounded-3xl shadow-2xl object-cover"
+                />
               </div>
             </div>
 
